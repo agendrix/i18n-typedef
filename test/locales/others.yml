@@ -1,0 +1,7 @@
+en-CA:
+  simple:
+    other: Another string on the same parent
+  other:
+    title: Other
+    text: other
+  root_translation: Root

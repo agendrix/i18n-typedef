@@ -1,0 +1,20 @@
+en-CA:
+  text_on_root: Text on root
+  simple:
+    ok: OK
+    _yes: 'Yes'
+    _no: 'No'
+  nested_children:
+    first_child:
+      level_two: 'First child, level two'
+      nested:
+        level_three: 'First child, level 3'
+    second_child:
+      object_one: Object one
+      object_two: Object two
+  arguments:
+    withTime: '%{time} ago'
+    multiple:
+      withIdAndDate: 'User id %{id} on date %{date}'
+      withNameTimeAndDate: 'User %{name} at %{time} on %{date}'
+    none: None
