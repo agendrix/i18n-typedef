@@ -5,3 +5,7 @@ export function toPascalCase(str: string) {
 }
 
 export const matchParams = /%\{([a-zA-Z_]*)\}/g
+
+export const onlyUnique = <T>(value: T, index: number, self: any) => { 
+  return self.indexOf(value) === index;
+}

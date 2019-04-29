@@ -1,6 +1,6 @@
 import * as yaml from 'js-yaml'
 import * as fs from 'fs'
-import { toPascalCase, matchParams } from './helpers'
+import { toPascalCase, matchParams, onlyUnique } from './helpers'
 import * as glob from 'glob'
 
 export default class I18nYamlDefinitions {
@@ -38,16 +38,21 @@ export default class I18nYamlDefinitions {
     const fileData = `
 type OptionalArgTuple<T> = T extends undefined ? [] : [T]
 
-type I18n = {
-  t: <Text extends keyof I18n.Translation>(
+declare namespace I18n {
+  type NumberOptions = Partial<{
+    unit: string; // "$"
+    precision: number; // 2
+    format: string; // "%u%n"
+    delimiter: string; // ","
+    separator: string; // "."
+    strip_insignificant_zeros: boolean; // false
+  }>;
+
+  type Translator = <Text extends keyof I18n.Translation>(
     text: Text,
     ...params: OptionalArgTuple<I18n.Translation[Text]>
   ) => string
-}
-
-declare var I18n: I18n
-
-declare namespace I18n {
+  
 ${groups
   .map(group => {
     let definitionString = `  export type ${group} = {\n`
@@ -59,6 +64,7 @@ ${groups
 
         return `    "${translation.text}": ${paramsType}`
       })
+      .filter(onlyUnique)
       .join('\n')
 
     definitionString += '\n  }\n'
@@ -68,6 +74,28 @@ ${groups
 
   export type Translation = ${groups.join(' & ')}
 }
+
+type I18n = {
+  // Note: Not all options have been defined here yet
+
+  /** Translate the given scope with the provided options. */
+  t: I18n.Translator;
+  translate: I18n.Translator;
+
+  /** Format currency with localization rules. */
+  toCurrency(number: number, options?: I18n.NumberOptions);
+
+  /** Format number using localization rules. */
+  toNumber(number: number, options?: I18n.NumberOptions);
+
+  /** Convert a number into a formatted percentage value. */
+  toPercentage(number: number, options?: I18n.NumberOptions);
+
+  /** Convert a number into a readable size representation. */
+  toHumanSize(number: number, options?: I18n.NumberOptions);
+};
+
+declare var I18n: I18n
     `
 
     fs.writeFileSync(`${this.outputFolder}/I18n.d.ts`, fileData)
@@ -88,7 +116,7 @@ ${groups
   private getTranslation(paths: string[], value: string): Translation {
     return {
       text: paths.join('.'),
-      params: (value.match(matchParams) || []).map(param => `${param.slice(2, -1)}: string`)
+      params: (value.match(matchParams) || []).filter(onlyUnique).map(param => `${param.slice(2, -1)}: string`)
     }
   }
 
