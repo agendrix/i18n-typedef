@@ -1,11 +1,11 @@
 {
-  "name": "i18n-yaml-typescript-definitions",
+  "name": "i18n-typedef",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/i18n-yaml-typescript-definitions.umd.js",
-  "module": "dist/i18n-yaml-typescript-definitions.es5.js",
-  "typings": "dist/types/i18n-yaml-typescript-definitions.d.ts",
+  "main": "dist/i18n-typedef.umd.js",
+  "module": "dist/i18n-typedef.es5.js",
+  "typings": "dist/types/i18n-typedef.d.ts",
   "files": [
     "dist"
   ],
@@ -56,9 +56,9 @@
     "coverageThreshold": {
       "global": {
         "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
       }
     },
     "collectCoverageFrom": [
@@ -68,11 +68,6 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
@@ -85,7 +80,6 @@
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
-    "glob": "^7.1.3",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
     "jest-config": "^23.6.0",
@@ -113,5 +107,9 @@
     "typedoc": "^0.12.0",
     "typescript": "^3.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chokidar": "^3.0.0",
+    "commander": "^2.20.0",
+    "globby": "9.2.0"
+  }
 }

@@ -1,4 +1,4 @@
-import I18nYamlDefinitions from '../src/i18n-yaml-typescript-definitions'
+import I18nYamlDefinitions from '../src/I18nYamlDefinitions'
 import * as fs from 'fs'
 import { rm } from 'shelljs'
 
@@ -11,7 +11,7 @@ describe('I18nYamlDefinitions test', () => {
   })
 
   it('I18nYamlDefinitions is instantiable', () => {
-    expect(new I18nYamlDefinitions('', '')).toBeInstanceOf(I18nYamlDefinitions)
+    expect(new I18nYamlDefinitions([], '')).toBeInstanceOf(I18nYamlDefinitions)
   })
 
   it('I18nYamlDefinitions generates definitions file', () => {
@@ -34,7 +34,10 @@ describe('I18nYamlDefinitions test', () => {
       `"other.title": undefined`,
       `"other.text": undefined`
     ]
-    const i18nDefinitionCreator = new I18nYamlDefinitions(__dirname + '/locales', __dirname)
+    const i18nDefinitionCreator = new I18nYamlDefinitions(
+      [`${__dirname}/locales/en`, `${__dirname}/locales/en-CA`],
+      __dirname
+    )
 
     i18nDefinitionCreator.generateDefinitions()
 
@@ -43,7 +46,7 @@ describe('I18nYamlDefinitions test', () => {
     expect(file).toContain('type I18n')
     expectedTranslations.forEach(translation => expect(file).toContain(translation))
     expect(file).toContain(
-      'export type Translation = Root & Simple & NestedChildren & Arguments & Other'
+      'export type Translation = Simple & Other & Root & NestedChildren & Arguments'
     )
 
     rm(expectedOutputPath)
