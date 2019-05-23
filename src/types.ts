@@ -1,12 +1,12 @@
-type TextsObject = {
+export type TextsObject = {
   [index: string]: string | TextsObject
 }
 
-type Translation = {
+export type Translation = {
   text: string
   params: string[]
 }
 
-type TranslationGroups = {
+export type TranslationGroups = {
   [index: string]: Translation[]
 }

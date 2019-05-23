@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import { onlyUnique } from './helpers'
+import { TranslationGroups } from './types'
 
 export default function(groupTranslations: TranslationGroups, outputFolder: string) {
   const groups = Object.keys(groupTranslations)
@@ -8,20 +9,6 @@ export default function(groupTranslations: TranslationGroups, outputFolder: stri
 type OptionalArgTuple<T> = T extends undefined ? [] : [T]
 
 declare namespace I18n {
-  type NumberOptions = Partial<{
-    unit: string; // "$"
-    precision: number; // 2
-    format: string; // "%u%n"
-    delimiter: string; // ","
-    separator: string; // "."
-    strip_insignificant_zeros: boolean; // false
-  }>;
-
-  type Translator = <Text extends keyof I18n.Translation>(
-    text: Text,
-    ...params: OptionalArgTuple<I18n.Translation[Text]>
-  ) => string
-  
 ${groups
   .map(group => {
     let definitionString = `  export type ${group} = {\n`
@@ -42,6 +29,20 @@ ${groups
   .join('\n')}
 
   export type Translation = ${groups.join(' & ')}
+
+  type NumberOptions = Partial<{
+    unit: string; // "$"
+    precision: number; // 2
+    format: string; // "%u%n"
+    delimiter: string; // ","
+    separator: string; // "."
+    strip_insignificant_zeros: boolean; // false
+  }>;
+
+  type Translator = <Text extends keyof I18n.Translation>(
+    text: Text,
+    ...params: OptionalArgTuple<I18n.Translation[Text]>
+  ) => string
 }
 
 type I18n = {

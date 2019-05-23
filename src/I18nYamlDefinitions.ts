@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import { toPascalCase, matchParams, onlyUnique } from './helpers'
 import * as globby from 'globby'
 import createDefinitionFile from './createDefinitionFile'
+import { Translation, TranslationGroups, TextsObject } from './types'
 
 export default class I18nYamlDefinitions {
   private i18nFolders: string[]

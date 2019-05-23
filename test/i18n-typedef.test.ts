@@ -2,20 +2,23 @@ import I18nYamlDefinitions from '../src/I18nYamlDefinitions'
 import * as fs from 'fs'
 import { rm } from 'shelljs'
 
+const expectedOutputPath = __dirname + '/I18n.d.ts'
+
 /**
  * I18nYamlDefinitions test
  */
 describe('I18nYamlDefinitions test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy()
-  })
-
   it('I18nYamlDefinitions is instantiable', () => {
     expect(new I18nYamlDefinitions([], '')).toBeInstanceOf(I18nYamlDefinitions)
   })
 
+  it('I18nYamlDefinitions is does not crash when there is no I18n files', () => {
+    new I18nYamlDefinitions([`${__dirname}/no-locales`], __dirname).generateDefinitions()
+
+    expect(fs.existsSync(expectedOutputPath)).toBeFalsy()
+  })
+
   it('I18nYamlDefinitions generates definitions file', () => {
-    const expectedOutputPath = __dirname + '/I18n.d.ts'
     const expectedTranslations = [
       `"text_on_root": undefined`,
       `"root_translation": undefined`,
