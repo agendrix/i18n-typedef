@@ -1,8 +1,8 @@
 # i18n-typedef
 
-[![Build Status](https://travis-ci.com/ericmatte/i18n-typedef.svg?branch=master)](https://travis-ci.com/ericmatte/i18n-typedef)
-
 This small library allows to generate TypeScript definition file from multiple yaml translation files.
+
+[![Build Status](https://travis-ci.com/ericmatte/i18n-typedef.svg?branch=master)](https://travis-ci.com/ericmatte/i18n-typedef)
 
 ## Install
 
