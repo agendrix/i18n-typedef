@@ -17,4 +17,5 @@ en-CA:
     multiple:
       withIdAndDate: 'User id %{id} on date %{date}'
       withNameTimeAndDate: 'User %{name} at %{time} on %{date}'
+      withNumbersInName: 'Credit card updated: %{brand_4_first_digits} **** %{last4}.'
     none: None
