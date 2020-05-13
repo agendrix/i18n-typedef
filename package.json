@@ -1,6 +1,6 @@
 {
   "name": "i18n-typedef",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Convert I18n translation files to TypeScript definitions",
   "keywords": [
     "I18n",
