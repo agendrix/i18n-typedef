@@ -2,31 +2,33 @@ import * as fs from 'fs'
 import { onlyUnique } from './helpers'
 import { TranslationGroups } from './types'
 
-export default function(groupTranslations: TranslationGroups, outputFolder: string) {
+export default function (groupTranslations: TranslationGroups, outputFolder: string) {
   const groups = Object.keys(groupTranslations)
+
+  const exportGroups = groups
+    .map(group => {
+      let definitionString = `  export type ${group} = {\n`
+
+      definitionString += groupTranslations[group]
+        .map(translation => {
+          const paramsType =
+            translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join(', ')} }`
+
+          return `    "${translation.text}": ${paramsType}`
+        })
+        .filter(onlyUnique)
+        .join('\n')
+
+      definitionString += '\n  }\n'
+      return definitionString
+    })
+    .join('\n')
 
   const fileData = `
 type OptionalArgTuple<T> = T extends undefined ? [] : [T]
 
 declare namespace I18n {
-${groups
-  .map(group => {
-    let definitionString = `  export type ${group} = {\n`
-
-    definitionString += groupTranslations[group]
-      .map(translation => {
-        const paramsType =
-          translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join(', ')} }`
-
-        return `    "${translation.text}": ${paramsType}`
-      })
-      .filter(onlyUnique)
-      .join('\n')
-
-    definitionString += '\n  }\n'
-    return definitionString
-  })
-  .join('\n')}
+${exportGroups}
 
   export type Translation = ${groups.join(' & ')}
 
@@ -53,16 +55,16 @@ type I18n = {
   translate: I18n.Translator;
 
   /** Format currency with localization rules. */
-  toCurrency(number: number, options?: I18n.NumberOptions);
+  toCurrency(number: number, options?: I18n.NumberOptions): string;
 
   /** Format number using localization rules. */
-  toNumber(number: number, options?: I18n.NumberOptions);
+  toNumber(number: number, options?: I18n.NumberOptions): string;
 
   /** Convert a number into a formatted percentage value. */
-  toPercentage(number: number, options?: I18n.NumberOptions);
+  toPercentage(number: number, options?: I18n.NumberOptions): string;
 
   /** Convert a number into a readable size representation. */
-  toHumanSize(number: number, options?: I18n.NumberOptions);
+  toHumanSize(number: number, options?: I18n.NumberOptions): string;
 };
 
 declare var I18n: I18n
