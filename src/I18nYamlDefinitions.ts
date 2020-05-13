@@ -41,8 +41,7 @@ export default class I18nYamlDefinitions {
     const groups: TranslationGroups = {}
 
     translations.forEach(translation => {
-      const groupName =
-        toPascalCase(translation.text.substr(0, translation.text.indexOf('.'))) || 'Root'
+      const groupName = toPascalCase(translation.text.substr(0, translation.text.indexOf('.'))) || 'Root'
       groups[groupName] = [...(groups[groupName] || []), translation]
     })
 
