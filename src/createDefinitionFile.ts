@@ -49,6 +49,7 @@ ${exportGroups}
 
 type I18n = {
   // Note: Not all options have been defined here yet
+  locale: string;
 
   /** Translate the given scope with the provided options. */
   t: I18n.Translator;
