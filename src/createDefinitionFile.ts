@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { onlyUnique } from './helpers'
 import { TranslationGroups } from './types'
 
-export default function (groupTranslations: TranslationGroups, outputFolder: string) {
+export default function(groupTranslations: TranslationGroups, outputFolder: string) {
   const groups = Object.keys(groupTranslations)
 
   const exportGroups = groups
@@ -14,7 +14,7 @@ export default function (groupTranslations: TranslationGroups, outputFolder: str
           const paramsType =
             translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join(', ')} }`
 
-          return `    "${translation.text}": ${paramsType}`
+          return `    "${translation.text}": ${paramsType};`
         })
         .filter(onlyUnique)
         .join('\n')
@@ -25,7 +25,7 @@ export default function (groupTranslations: TranslationGroups, outputFolder: str
     .join('\n')
 
   const fileData = `
-type OptionalArgTuple<T> = T extends undefined ? [] : [T]
+type OptionalArgTuple<T> = T extends undefined ? [] : [T];
 
 declare namespace I18n {
 ${exportGroups}
@@ -44,7 +44,7 @@ ${exportGroups}
   type Translator = <Text extends keyof I18n.Translation>(
     text: Text,
     ...params: OptionalArgTuple<I18n.Translation[Text]>
-  ) => string
+  ) => string;
 }
 
 type I18n = {
@@ -68,7 +68,7 @@ type I18n = {
   toHumanSize(number: number, options?: I18n.NumberOptions): string;
 };
 
-declare var I18n: I18n
+declare var I18n: I18n;
     `
 
   fs.writeFileSync(`${outputFolder}/I18n.d.ts`, fileData)
