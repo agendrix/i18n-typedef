@@ -31,9 +31,9 @@ describe('I18nYamlDefinitions test', () => {
       `"nested_children.second_child.object_one": undefined;`,
       `"nested_children.second_child.object_two": undefined;`,
       `"arguments.withTime": { time: string };`,
-      `"arguments.multiple.withIdAndDate": { id: string, date: string };`,
-      `"arguments.multiple.withNameTimeAndDate": { name: string, time: string, date: string };`,
-      `"arguments.multiple.withNumbersInName": { brand_4_first_digits: string, last4: string };`,
+      `"arguments.multiple.withIdAndDate": { id: string; date: string };`,
+      `"arguments.multiple.withNameTimeAndDate": { name: string; time: string; date: string };`,
+      `"arguments.multiple.withNumbersInName": { brand_4_first_digits: string; last4: string };`,
       `"arguments.none": undefined;`,
       `"other.title": undefined;`,
       `"other.text": undefined;`

@@ -12,14 +12,14 @@ export default function(groupTranslations: TranslationGroups, outputFolder: stri
       definitionString += groupTranslations[group]
         .map(translation => {
           const paramsType =
-            translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join(', ')} }`
+            translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join('; ')} }`
 
           return `    "${translation.text}": ${paramsType};`
         })
         .filter(onlyUnique)
         .join('\n')
 
-      definitionString += '\n  }\n'
+      definitionString += '\n  };\n'
       return definitionString
     })
     .join('\n')
@@ -30,7 +30,7 @@ type OptionalArgTuple<T> = T extends undefined ? [] : [T];
 declare namespace I18n {
 ${exportGroups}
 
-  export type Translation = ${groups.join(' & ')}
+  export type Translation = ${groups.join(' & ')};
 
   type NumberOptions = Partial<{
     unit: string; // "$"
