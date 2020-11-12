@@ -1,6 +1,6 @@
 {
   "name": "i18n-typedef",
-  "version": "1.0.8",
+  "version": "1.1.0-beta1",
   "description": "Convert I18n translation files to TypeScript definitions",
   "author": "Eric Matte <eric.matte@hotmail.ca>",
   "keywords": [
@@ -27,8 +27,7 @@
     "commander": "^6.2.0",
     "globby": "11.0.1",
     "js-yaml": "^3.14.0",
-    "lodash.debounce": "^4.0.8",
-    "tslib": "^2.0.3"
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
@@ -45,6 +44,7 @@
     "rimraf": "^3.0.2",
     "shelljs": "^0.8.4",
     "ts-jest": "^26.4.4",
+    "tslib": "^2.0.3",
     "tsutils": "^3.17.1",
     "typescript": "^4.0.5"
   },

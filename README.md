@@ -2,7 +2,7 @@
 
 This small library allows to generate TypeScript definition file from multiple yaml translation files.
 
-[![Build Status](https://travis-ci.com/ericmatte/i18n-typedef.svg?branch=master)](https://travis-ci.com/ericmatte/i18n-typedef)
+![Tests](https://github.com/ericmatte/i18n-typedef/workflows/Tests/badge.svg?branch=upgrade) ![NPM Package](https://github.com/ericmatte/i18n-typedef/workflows/NPM%20Package/badge.svg)
 
 ## Install
 
