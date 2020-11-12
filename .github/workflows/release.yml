@@ -43,8 +43,22 @@ jobs:
             echo "::set-output name=package_version::$package_version"
           fi
 
-      - run: npm publish --tag "$VERSION"
+      # npm config set registry https://skimdb.npmjs.com/registry
+
+      - run: npm publish
         if: steps.check.outputs.should_publish == 'true'
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VERSION: ${{ steps.check.package_version }}
+
+      - name: Setup GitHub git user
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Tag release commit
+        run: |
+          git tag "v$VERSION"
+          git push --force --tags
+        env:
           VERSION: ${{ steps.check.package_version }}
