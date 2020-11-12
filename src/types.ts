@@ -1,12 +1,12 @@
 export type TextsObject = {
-  [index: string]: string | TextsObject
-}
+  [index: string]: string | TextsObject;
+};
 
 export type Translation = {
-  text: string
-  params: string[]
-}
+  text: string;
+  params: string[];
+};
 
 export type TranslationGroups = {
-  [index: string]: Translation[]
-}
+  [index: string]: Translation[];
+};
