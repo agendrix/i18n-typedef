@@ -11,7 +11,6 @@ jobs:
 
     env:
       CI: true
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +20,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: yarn install
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - run: yarn test --coverage=false
 
@@ -50,3 +51,4 @@ jobs:
         if: steps.check.outputs.should_publish == 'true'
         env:
           VERSION: ${{ steps.check.package_version }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
