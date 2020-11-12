@@ -1,0 +1,27 @@
+name: Tests
+
+on: push
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [10, 12, 14]
+
+    env:
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: yarn install
+
+      - run: yarn test --coverage=false
+
+      - run: yarn build

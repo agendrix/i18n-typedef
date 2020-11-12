@@ -1,0 +1,17 @@
+.DS_Store
+*.log
+
+node_modules
+coverage
+src/
+tests/
+
+I18n.d.ts
+
+.eslintignore
+.eslintrc.json
+.github
+.prettierrc
+jest.config.js
+tsconfig.json
+tsconfig.release.json

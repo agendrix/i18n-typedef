@@ -1,0 +1,55 @@
+name: NPM Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: yarn install
+
+      - run: yarn test --coverage=false
+
+      - run: yarn build
+
+      - name: Check if already published
+        id: check
+        run: |
+          package_version=$(jq '.version' package.json -r)
+          npm_versions=$(npm show i18n-typedef versions)
+
+          echo "Current version is $package_version"
+          echo "::group::NPM versions"
+          echo "$npm_versions"
+          echo "::endgroup::"
+
+          if [[ $npm_versions == *"'$package_version'"* ]]; then
+            echo "This version is already published."
+            echo '::set-output name=should_publish::false'
+          else
+            echo "A new version will be published."
+            echo '::set-output name=should_publish::true'
+            echo "::set-output name=package_version::$package_version"
+          fi
+
+      - name: npm publish
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
+          npm publish
+        if: steps.check.outputs.should_publish == 'true'
+        env:
+          VERSION: ${{ steps.check.package_version }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

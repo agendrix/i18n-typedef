@@ -1,28 +1,27 @@
-import * as fs from 'fs'
-import { onlyUnique } from './helpers'
-import { TranslationGroups } from './types'
+import * as fs from 'fs';
+import { onlyUnique } from './helpers';
+import { TranslationGroups } from './types';
 
-export default function(groupTranslations: TranslationGroups, outputFolder: string) {
-  const groups = Object.keys(groupTranslations)
+export default function (groupTranslations: TranslationGroups, outputFolder: string): void {
+  const groups = Object.keys(groupTranslations);
 
   const exportGroups = groups
-    .map(group => {
-      let definitionString = `  export type ${group} = {\n`
+    .map((group) => {
+      let definitionString = `  export type ${group} = {\n`;
 
       definitionString += groupTranslations[group]
-        .map(translation => {
-          const paramsType =
-            translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join('; ')} }`
+        .map((translation) => {
+          const paramsType = translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join('; ')} }`;
 
-          return `    "${translation.text}": ${paramsType};`
+          return `    "${translation.text}": ${paramsType};`;
         })
         .filter(onlyUnique)
-        .join('\n')
+        .join('\n');
 
-      definitionString += '\n  };\n'
-      return definitionString
+      definitionString += '\n  };\n';
+      return definitionString;
     })
-    .join('\n')
+    .join('\n');
 
   const fileData = `
 type OptionalArgTuple<T> = T extends undefined ? [] : [T];
@@ -69,7 +68,7 @@ type I18n = {
 };
 
 declare var I18n: I18n;
-    `
+    `;
 
-  fs.writeFileSync(`${outputFolder}/I18n.d.ts`, fileData)
+  fs.writeFileSync(`${outputFolder}/I18n.d.ts`, fileData);
 }
