@@ -19,7 +19,7 @@ jobs:
 
       - run: yarn install
 
-      - run: yarn test
+      - run: yarn test --coverage=false
 
       - run: yarn build
 
@@ -40,9 +40,11 @@ jobs:
           else
             echo "A new version will be published."
             echo '::set-output name=should_publish::true'
+            echo "::set-output name=package_version::$package_version"
           fi
 
-      - run: npm publish
+      - run: npm publish --tag "$VERSION"
         if: steps.check.outputs.should_publish == 'true'
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VERSION: ${{ steps.check.package_version }}
