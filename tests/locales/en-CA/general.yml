@@ -19,3 +19,8 @@ en-CA:
       withNameTimeAndDate: 'User %{name} at %{time} on %{date}'
       withNumbersInName: 'Credit card updated: %{brand_4_first_digits} **** %{last4}.'
     none: None
+  with_count:
+    one: "One simple item"
+    other: "%{count} items"
+    title: "Items"
+

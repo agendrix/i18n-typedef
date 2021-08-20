@@ -5,6 +5,7 @@ export type TextsObject = {
 export type Translation = {
   text: string;
   params: string[];
+  isParent?: boolean;
 };
 
 export type TranslationGroups = {

@@ -12,8 +12,8 @@ export default function (groupTranslations: TranslationGroups, outputFolder: str
       definitionString += groupTranslations[group]
         .map((translation) => {
           const paramsType = translation.params.length === 0 ? 'undefined' : `{ ${translation.params.join('; ')} }`;
-
-          return `    "${translation.text}": ${paramsType};`;
+          const output = translation.isParent ? 'any' : 'string';
+          return `    "${translation.text}": [${paramsType}, ${output}];`;
         })
         .filter(onlyUnique)
         .join('\n');
@@ -24,8 +24,6 @@ export default function (groupTranslations: TranslationGroups, outputFolder: str
     .join('\n');
 
   const fileData = `
-type OptionalArgTuple<T> = T extends undefined ? [] : [T];
-
 declare namespace I18n {
 ${exportGroups}
 
@@ -40,10 +38,12 @@ ${exportGroups}
     strip_insignificant_zeros: boolean; // false
   }>;
 
-  type Translator = <Text extends keyof I18n.Translation>(
+  type OptionalArgTuple<P, O> = O extends string ? (P extends undefined ? [] : [P]) : any;
+
+  type Translator = <Text extends keyof Translation>(
     text: Text,
-    ...params: OptionalArgTuple<I18n.Translation[Text]>
-  ) => string;
+    ...params: OptionalArgTuple<Translation[Text][0], Translation[Text][1]>
+  ) => Translation[Text][1];
 }
 
 type I18n = {

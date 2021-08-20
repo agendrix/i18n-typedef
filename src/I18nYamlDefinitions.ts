@@ -51,13 +51,20 @@ export default class I18nYamlDefinitions {
   private getTranslation(paths: string[], value: string): Translation {
     return {
       text: paths.join('.'),
-      params: (value.match(matchParams) || []).filter(onlyUnique).map((param) => `${param.slice(2, -1)}: string`),
+      params: (value.match(matchParams) || [])
+        .filter(onlyUnique)
+        .map((param) => `${param.slice(2, -1)}: string | number`),
     };
   }
 
   private getAllTranslations(textsObject: TextsObject, parentPaths: string[] = []): Translation[] {
     const texts = Object.keys(textsObject);
     let translations: Translation[] = [];
+
+    const parentTranslation: Translation = { text: parentPaths.join('.'), params: [], isParent: true };
+    if (parentTranslation.text !== '') {
+      translations.push(parentTranslation);
+    }
 
     texts.forEach((text) => {
       if (typeof textsObject[text] === 'string') {
