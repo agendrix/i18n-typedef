@@ -2,7 +2,8 @@
   "name": "i18n-typedef",
   "version": "1.2.0",
   "description": "Convert I18n translation files to TypeScript definitions",
-  "author": "Eric Matte <eric.matte@hotmail.ca>",
+  "author": "Agendrix",
+  "repository": "github:agendrix/i18n-typedef",
   "keywords": [
     "I18n",
     "yaml",
