@@ -65,6 +65,9 @@ type I18n = {
 
   /** Convert a number into a readable size representation. */
   toHumanSize(number: number, options?: I18n.NumberOptions): string;
+
+  /** Find and process the translation using the provided scope and options. */
+  lookup(scope: string): string | undefined;
 };
 
 declare var I18n: I18n;
