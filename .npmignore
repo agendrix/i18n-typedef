@@ -15,6 +15,3 @@ I18n.d.ts
 jest.config.js
 tsconfig.json
 tsconfig.release.json
-
-# Include the dist folder
-!dist

@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-require('../dist/src/i18n-typedef.js');
+require('../dist/i18n-typedef.js');
