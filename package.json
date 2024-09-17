@@ -3,7 +3,10 @@
   "version": "1.2.1",
   "description": "Convert I18n translation files to TypeScript definitions",
   "author": "Agendrix",
-  "repository": "github:agendrix/i18n-typedef",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agendrix/i18n-typedef.git"
+  },
   "keywords": [
     "I18n",
     "yaml",
@@ -11,7 +14,7 @@
     "CLI"
   ],
   "bin": {
-    "i18n-typedef": "./bin/i18n-typedef"
+    "i18n-typedef": "bin/i18n-typedef"
   },
   "license": "Apache-2.0",
   "scripts": {
