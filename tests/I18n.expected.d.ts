@@ -88,7 +88,7 @@ type I18n = {
   toHumanSize(number: number, options?: I18n.NumberOptions): string;
 
   /** Find and process the translation using the provided scope and options. */
-  lookup(scope: string): string | undefined;
+  lookup(scope: string): string | string[] | Record<string, unknown> | undefined;
 };
 
 declare var I18n: I18n;

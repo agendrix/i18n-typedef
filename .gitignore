@@ -4,6 +4,5 @@
 node_modules
 dist
 coverage
-.npmrc
 
 I18n.d.ts
