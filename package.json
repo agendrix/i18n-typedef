@@ -1,6 +1,6 @@
 {
   "name": "i18n-typedef",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Convert I18n translation files to TypeScript definitions",
   "author": "Agendrix",
   "repository": "github:agendrix/i18n-typedef",
@@ -50,6 +50,6 @@
     "typescript": "^4.0.5"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   }
 }
